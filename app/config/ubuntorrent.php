@@ -11,4 +11,7 @@ return array(
 			"user_password"		=> "Alex",
 			"url"				=> "88.159.163.148",
 		),
+	"torrent" => array(
+			"torrents_added"	=> 1,
+		)
 );

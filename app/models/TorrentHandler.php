@@ -19,13 +19,17 @@ class TorrentHandler {
 		$transmission->setClient($client);
 		$session 			= $transmission->getSession();
 
-		foreach($torrents as $torrent)
+		if(Config::get('ubuntorrent.torrents.torrents_added') != count($torrents))
 		{
-			$session->setDownloadDir('/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.S' . $torrent['season']);
-			$session->save();
-			
-			$item  = $transmission->add($torrent['link']);
-			$item->start(true);
+			foreach($torrents as $torrent)
+			{
+				$session->setDownloadDir('/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.S' . $torrent['season']);
+				$session->save();
+
+				$item  = $transmission->add($torrent['link']);
+				$item->start(true);
+			}
+			Config::set('ubuntorrent.torrents.torrents_added', count($torrents));
 		}
 	}
 }
