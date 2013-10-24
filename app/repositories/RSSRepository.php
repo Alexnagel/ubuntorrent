@@ -77,7 +77,7 @@ class RSSRepository implements RepositoryInterface
 		preg_match($regex, $text, $matches);
 
 		$name 			= $matches[1];
-		$episode_name 	= "Season " . $matches[3] . ", Episode " . $matches[2] . " : " . $matches[4];
+		$episode_name 	= "Season " . $matches[2] . ", Episode " . $matches[3] . " : " . $matches[4];
 
 		return array("Name" => $name, "EpisodeName" => $episode_name);
 	}
@@ -89,8 +89,8 @@ class RSSRepository implements RepositoryInterface
 		preg_match($regex, $text, $matches);
 
 		$name 		= str_replace(' ', '.', $matches[1]);
-		$season 	= $matches[3];
-		$episode 	= $matches[2];
+		$season 	= $matches[2];
+		$episode 	= $matches[3];
 
 		return ['name' => $name, 'season' => $season, 'episode' => $episode];
 	}
