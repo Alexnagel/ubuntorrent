@@ -19,6 +19,8 @@ class TorrentHandler {
 		$transmission->setClient($client);
 		$session 			= $transmission->getSession();
 
+		echo "config: " . Config::get('ubuntorrent.torrents.torrents_added') . " count: " . count($torrents);
+
 		if(Config::get('ubuntorrent.torrents.torrents_added') != count($torrents))
 		{
 			foreach($torrents as $torrent)
