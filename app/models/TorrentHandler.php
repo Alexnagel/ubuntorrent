@@ -21,7 +21,7 @@ class TorrentHandler {
 
 		foreach($torrents as $torrent)
 		{
-			print_r($torrent);
+			echo '/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.S' . $torrent['season'];
 			/*$session->setDownloadDir('/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.' . $torrent['season']);
 			$session->save();
 			$item  = $transmission->add($torrent['link']);
