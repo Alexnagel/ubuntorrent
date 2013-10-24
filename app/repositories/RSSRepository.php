@@ -50,7 +50,7 @@ class RSSRepository implements RepositoryInterface
 
 	public function getShows()
 	{
-		$current_day 	= date('d-m-Y', strtotime('18-10-2013'));
+		$current_day 	= date('d-m-Y');
 		$feed_url 		= file_get_contents(Config::get('ubuntorrent.RSS.personal_feed'));
 		$feed 			= simplexml_load_string($feed_url);
 
