@@ -1,0 +1,12 @@
+.navbar, .navbar-inner{
+	border-radius: 0;
+}
+
+.navbar-inverse .navbar-brand{
+	border-left: 2px solid #2c3e50;
+	border-radius: 0;
+}
+
+.main-container{
+	padding-top: 70px;
+}
