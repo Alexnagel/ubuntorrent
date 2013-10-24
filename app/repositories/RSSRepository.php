@@ -72,24 +72,36 @@ class RSSRepository implements RepositoryInterface
 
 	private function regexScheduleItem($text)
 	{
-		$regex 	= "/(.*?)\s?(\d{1})x(\d{2})\s(.*)\sairs(.*)/";
+		$regex 	= "/(.*?)\s?(\d{1}|\d{2})x(\d{2})\s(.*)\sairs(.*)/";
 
 		preg_match($regex, $text, $matches);
 
 		$name 			= $matches[1];
-		$episode_name 	= "Season " . $matches[2] . ", Episode " . $matches[3] . " : " . $matches[4];
+		if(strlen($matches[2]) == 1)
+		{
+			$season = "0" . $matches[2];
+		}else{
+			$season = $matches[2];
+		}
+		$episode_name 	= "Season " . $season . ", Episode " . $matches[3] . " : " . $matches[4];
 
 		return array("Name" => $name, "EpisodeName" => $episode_name);
 	}
 
 	private function regexTorrentItem($text)
 	{
-		$regex = "/(.*?)\s?(\d{1})x(\d{2})\s(.*)\s(.*)/";
+		$regex = "/(.*?)\s?(\d{1}|\d{2})x(\d{2})\s(.*)\s(.*)/";
 
 		preg_match($regex, $text, $matches);
 
+		if(strlen($matches[2]) == 1)
+		{
+			$season = "0" . $matches[2];
+		}else{
+			$season = $matches[2];
+		}
+
 		$name 		= str_replace(' ', '.', $matches[1]);
-		$season 	= $matches[2];
 		$episode 	= $matches[3];
 
 		return ['name' => $name, 'season' => $season, 'episode' => $episode];
