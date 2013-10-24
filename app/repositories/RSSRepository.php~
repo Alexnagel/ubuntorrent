@@ -55,7 +55,7 @@ class RSSRepository implements RepositoryInterface
 		$feed 			= simplexml_load_string($feed_url);
 
 		$feed_items 	= $feed->xpath('channel/item');
-		
+		echo $current_day;
 		$torrents = [];
 		foreach($feed_items as $item)
 		{
