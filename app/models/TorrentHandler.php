@@ -29,7 +29,8 @@ class TorrentHandler {
 				$item  = $transmission->add($torrent['link']);
 				$item->start(true);
 			}
-			Config::set('ubuntorrent.torrents.torrents_added', count($torrents));
+			Config::set('ubuntorrent.torrent.torrents_added', count($torrents));
+			Config::set('ubuntorrent.torrent.last_check', date('d-m-Y'));
 		}
 	}
 }

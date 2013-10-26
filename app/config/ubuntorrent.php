@@ -13,5 +13,6 @@ return array(
 		),
 	"torrent" => array(
 			"torrents_added"	=> 1,
+			"last_check"		=> "25-10-2013",
 		)
 );
