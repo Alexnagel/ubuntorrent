@@ -50,7 +50,7 @@ class RSSRepository implements RepositoryInterface
 
 	public function getShows()
 	{
-		$last_check_day	= Config::get('ubuntorrent.torrent.last_check');
+		$last_check_day	= Setting::where('key', '=', 'last_torrent_check')->pluck('value');
 		$current_day 	= date('d-m-Y');
 		$feed_url 		= file_get_contents(Config::get('ubuntorrent.RSS.personal_feed'));
 		$feed 			= simplexml_load_string($feed_url);
@@ -67,6 +67,10 @@ class RSSRepository implements RepositoryInterface
 				$item_arr['link']	= (string)$item->link;
 				$torrents[] 		= $item_arr;
 			}
+		}
+		if(count($torrents) > 0)
+		{
+			Setting::where('key', '=', 'last_torrent_check')->update('value', $current_day);
 		}
 		return $torrents;
 	}

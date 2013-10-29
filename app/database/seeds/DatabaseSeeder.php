@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		Setting::create(array('key' => 'first_run', 'value' => 'true'));
+		Setting::create(array('key' => 'last_torrent_check', 'value' => '29-10-2013'));
 	}
 
 }
