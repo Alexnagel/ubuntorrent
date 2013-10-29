@@ -50,17 +50,18 @@ class RSSRepository implements RepositoryInterface
 
 	public function getShows()
 	{
+		$last_check_day	= Config::get('ubuntorrent.torrent.last_check');
 		$current_day 	= date('d-m-Y');
 		$feed_url 		= file_get_contents(Config::get('ubuntorrent.RSS.personal_feed'));
 		$feed 			= simplexml_load_string($feed_url);
 
 		$feed_items 	= $feed->xpath('channel/item');
-		
+
 		$torrents = [];
 		foreach($feed_items as $item)
 		{
 			$item_date = date('d-m-Y', strtotime($item->pubDate));
-			if($current_day == $item_date)
+			if($item_date =< $current_day && $item_date >= $last_check_day)
 			{
 				$item_arr 			= $this->regexTorrentItem($item->title);
 				$item_arr['link']	= (string)$item->link;
