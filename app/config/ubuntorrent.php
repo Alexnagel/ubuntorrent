@@ -12,7 +12,7 @@ return array(
 			"url"				=> "88.159.163.148",
 		),
 	"torrent" => array(
-			"torrents_added"	=> 1,
-			"last_check"		=> "25-10-2013",
+			"torrents_added"	=> 4,
+			"last_check"		=> "29-10-2013",
 		)
 );
