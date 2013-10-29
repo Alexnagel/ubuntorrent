@@ -17,17 +17,6 @@ $app->redirectIfTrailingSlash();
 
 /*
 |--------------------------------------------------------------------------
-| Check the last update time
-|--------------------------------------------------------------------------
-*/
-$today = date('d-m-Y');
-if($today != date('d-m-Y', strtotime(Config::get('ubuntorrent.torrent.last_check'))))
-{
-	Config::set('ubuntorrent.torrent.torrents_added', 0);
-}
-
-/*
-|--------------------------------------------------------------------------
 | Detect The Application Environment
 |--------------------------------------------------------------------------
 |

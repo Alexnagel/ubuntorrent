@@ -28,6 +28,7 @@ return array(
     'PHPParser' => $vendorDir . '/nikic/php-parser/lib',
     'Normalizer' => $vendorDir . '/patchwork/utf8/class',
     'Monolog' => $vendorDir . '/monolog/monolog/src',
+    'Moinax\\TvDb' => $vendorDir . '/moinax/tvdb/src',
     'Jeremeamia\\SuperClosure' => $vendorDir . '/jeremeamia/SuperClosure/src',
     'Illuminate' => $vendorDir . '/laravel/framework/src',
     'Guzzle\\Stream' => $vendorDir . '/guzzle/stream',

@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"kleiram/transmission-php": "dev-master",
-		"bluelyte/tpb-client": "dev-master"
+		"bluelyte/tpb-client": "dev-master",
+		"bluelyte/imdb-client": "dev-master",
+		"Moinax/Tvdb": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

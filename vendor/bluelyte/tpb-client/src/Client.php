@@ -39,22 +39,19 @@ class Client extends \Goutte\Client
         return $response;
     }
 
-    public function search($term, $page = 1, $category = 'all', $sort = true)
+    public function search($term, $page = 0, $category = 'all', $sort = true)
     {
         $categories = array_filter($this->categories, function($value) use ($category) {
             return ($category === 'all' || $value === $category);
         });
-        $params = array('q' => $term, 'page' => $page - 1);
+        $params = array('page' => $page - 1, 'orderby' => 7);
         foreach ($categories as $param) {
             $params[$param] = 1;
         }
 
+        $searchStr = "/s/?q=" . $term . "&page=0&orderBy=7";
         // Get the search form
-        $crawler = $this->request('GET', $this->baseUrl);
-
-        // Submit the search form
-        $form = $crawler->filterXPath('//form')->form();
-        $crawler = $this->submit($form, $params);
+        $crawler = $this->request('GET', $this->baseUrl . $searchStr);
 
         // Sort the search results to get the one with the most seeders
         if ($sort) {
@@ -71,6 +68,8 @@ class Client extends \Goutte\Client
             }
         }
 
+
+
         // Get position within the entire result set
         // Displaying hits from 30 to 60 (approx 1000 found)
         $h2 = $crawler->filterXPath('//h2[contains(., "Displaying hits")]');
@@ -80,57 +79,44 @@ class Client extends \Goutte\Client
         // Parse the data from the table
         $rows = $crawler->filterXPath('//table[@id="searchResult"]/tr');
         $results = array();
+        $episodeArr = array();
         foreach ($rows as $row) {
             $rowData = array();
             $row = new Crawler($row);
 
-            $links = $row->filterXPath('//td[1]//a');
-            $category = $this->getCategoryLink($links->eq(0));
-            $rowData['category'] = $category['name'];
-            $rowData['categoryLink'] = $category['href'];
-            $subcategory = $this->getCategoryLink($links->eq(1));
-            $rowData['subcategory'] = $subcategory['name'];
-            $rowData['subcategoryLink'] = $subcategory['href'];
-
             $cell = $row->filterXPath('//td[2]');
             $link = $cell->filterXPath('//a[@class="detLink"]');
             $rowData['name'] = $link->text();
-            $rowData['detailsLink'] = $this->baseUrl . $link->attr('href');
             $rowData['magnetLink'] = $cell->filterXPath('//a[@title="Download this torrent using magnet"]')->attr('href');
-
-            $link = $cell->filterXPath('//a[@title="Download this torrent"]');
-            if (count($link)) {
-                $rowData['torrentLink'] = 'http:' . $link->attr('href');
-            }
-
-            $link = $cell->filterXPath('//a[contains(@href, "/user/")]');
-            if (count($link)) {
-                $rowData['userLink'] = $this->baseUrl . $link->attr('href');
-            }
-
-            $img = $cell->filterXPath('//img[contains(@alt, "comments")]');
-            if (count($img)) {
-                $rowData['comments'] = preg_replace('/[^0-9]/', '', $img->attr('alt'));
-            }
-
-            $desc = $cell->filterXPath('//font[@class="detDesc"]')->text();
-            $descParsed = array();
-            preg_match('#Uploaded\s+(?P<time>[^,]+),\s+Size\s+(?P<size>[^,]+),\s+ULed\s+by\s+(?P<user>[^\s]+)#S', $desc, $descParsed);
-            $rowData['uploaded'] = date('Y') . '-' . $descParsed['time'] . ':00';
-            $rowData['size'] = $descParsed['size'];
-            $rowData['user'] = $descParsed['user'];
-
             $rowData['seeders'] = $row->filterXPath('//td[3]')->text();
-            $rowData['leechers'] = $row->filterXPath('//td[4]')->text();
-
-            $results[] = $rowData;
+            
+            $name = preg_match("/.*?(\d{2}).(\d{2}).(.*).(.*)/", $rowData['name']);
+            echo "hoi";
+            $swap_key = "";
+            foreach ($episodeArr as $key => $value) {
+                $key_name = str_replace(".", " ", $key);
+                if($key_name == $name[1] . " " . $name[2])
+                {
+                    if($key['seeders'] > $rowData['seeders'])
+                    {
+                        continue 2;
+                    }
+                    $swap_key = $key;
+                }
+            }
+            $data =  array('name' => $rowData['name'], 'magnet' => $rowData['magnetLink'], 'seeders' => $rowData['seeders'] );
+            $episodeArr[$swap_key] = $data;
         }
+
+        $results = $episodeArr;
 
         $return = array(
             'start' => $position['start'],
             'end' => $position['end'],
             'total' => $position['total'],
-            'results' => $results
+            'results' => $results,
+            'data' => $crawler,
+            'wtf' =>'d',
         );
 
         return $return;

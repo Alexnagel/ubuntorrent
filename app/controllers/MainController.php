@@ -14,4 +14,12 @@ class MainController extends BaseController
 		$torrentHandler = new TorrentHandler();
 		$torrentHandler->checkNewShows();
 	}
+
+	public function search($search)
+	{
+		$searchController = new SearchController();
+		$results = $searchController->search($search);
+
+		return View::make('search', array('results' => $results));
+	}
 }

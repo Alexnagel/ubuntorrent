@@ -12,6 +12,9 @@
     <!-- Bootstrap core CSS -->
     {{ HTML::style("bootstrap/css/bootstrap.css") }}
     {{ HTML::style("bootstrap/css/prettify.css") }}
+
+
+
     {{ HTML::style("css/flat-ui.css") }}
 
     <!-- Custom styles for this template -->
@@ -25,7 +28,6 @@
   </head>
 
   <body>
-
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
@@ -47,8 +49,23 @@
       <div class="row">
         @include('modules.schedule_module', array('schedule'=>$schedule))
         @yield('schedule_module')
-          <div class="col-md-6">
-            
+          <div class="col-md-8">
+            <div class="well">
+              <h4>Search:</h4>
+              <p>
+                Search for tv series and choose episodes to be downloaded.
+              </p>
+              <form action="search" method="post">
+                <div class="form-group">
+                  <div class="input-group input-group-hg">
+                    <input class="form-control" id="appendedInputButton-01" type="search" placeholder="Search">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button"><span class="fui-search"></span></button>
+                    </span>            
+                  </div>
+                </div>
+              </form>
+              </div>
           </div>
       </div>
     </div> <!-- /main-container -->
@@ -57,7 +74,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    {{ HTML::script('js/jquery.js') }}
+    {{ HTML::script('js/jquery-2.0.3.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
+    {{ HTML::script('js/application.js') }}
   </body>
 </html>
