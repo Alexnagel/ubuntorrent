@@ -58,7 +58,7 @@
               <form action="search" method="post">
                 <div class="form-group">
                   <div class="input-group input-group-hg">
-                    <input class="form-control" id="appendedInputButton-01" type="search" placeholder="Search">
+                    <input class="form-control" name="search_term" type="search" placeholder="Search">
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button"><span class="fui-search"></span></button>
                     </span>            

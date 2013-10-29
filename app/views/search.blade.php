@@ -29,16 +29,17 @@
 
   <body>
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
             <a href="{{ URL::to('/') }}" class="navbar-brand">Ubuntorrent</a>
 
-            <div class="nav-collapse collapse in" id="nav-collapse-01">
+            <div class="navbar-collapse collapse in" id="nav-collapse-01">
               <ul class="nav">
                 <!-- Menu items go here -->
                 <li>
+                  <a href="{{ URL::to('/') }}">Home</a>
                 </li>
               </ul>
             </div>
@@ -53,10 +54,10 @@
               <p>
                 Search for a tv series and choose episodes to be downloaded.
               </p>
-              <form>
+              <form action="/search" method="post">
                 <div class="form-group">
                   <div class="input-group input-group-hg">
-                    <input class="form-control" id="appendedInputButton-01" type="search" placeholder="Search">
+                    <input class="form-control" name="search_term" type="search" placeholder="Search">
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button"><span class="fui-search"></span></button>
                     </span>            
@@ -77,6 +78,7 @@
                   <th>Name</th>
                   <th>Date</th>
                   <th>Seeders</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -107,41 +109,16 @@
     {{ HTML::script('js/jquery-2.0.3.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/application.js') }}
-    {{ HTML::script('js/sortElements.js') }}
+    {{ HTML::script('js/jquery.dataTables.min.js') }}
+    {{ HTML::script('js/bootstrap.paging.js') }}
     <script type="text/javascript">
-      var table = $('table');
-    
-    $('th')
-        .each(function(){
-            
-            var th = $(this),
-                thIndex = th.index(),
-                inverse = false;
-            
-            th.click(function(){
-                
-                table.find('td').filter(function(){
-                    
-                    return $(this).index() === thIndex;
-                    
-                }).sortElements(function(a, b){
-                    
-                    return $.text([a]) > $.text([b]) ?
-                        inverse ? -1 : 1
-                        : inverse ? 1 : -1;
-                    
-                }, function(){
-                    
-                    // parentNode is the element we want to move
-                    return this.parentNode; 
-                    
-                });
-                
-                inverse = !inverse;
-                    
-            });
-                
-        });
+      $(document).ready(function(){
+         $('.search-results').dataTable( {
+              "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+              "sPaginationType": "bootstrap",
+              "aaSorting": [[ 2, "desc" ]],
+          } );
+      });
     </script>
   </body>
 </html>
