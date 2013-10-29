@@ -91,7 +91,8 @@ class RSSRepository implements RepositoryInterface
 
 	private function regexTorrentItem($text)
 	{
-		$regex = "/(.*?)\s?(\d{1}|\d{2})x(\d{2})\s(.*)\s(.*)/";
+		echo $text;
+		$regex = "/(.*?)\s?(\d{1,2})x(\d{2})/";
 
 		preg_match($regex, $text, $matches);
 
