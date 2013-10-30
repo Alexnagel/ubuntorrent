@@ -54,9 +54,7 @@
               <div class="label label-success pull-right">{{ $show->status }}</div>
               <h1>{{ $show->name }}</h1>
               <h6 class="show-genre"> 
-                @foreach( $show->genres as $genre )
-                    {{ $genre }}, 
-                @endforeach
+                {{ $show->genres }}
               </h6>
               <div class="show-info">
                 <h3>Summary</h3>
@@ -66,9 +64,7 @@
 
                 <h3>Cast</h3>
                 <p>
-                  @foreach( $show->actors as $actor )
-                    {{ $actor }}, 
-                  @endforeach
+                  {{ $show->actors }}
                 </p>
               </div>
               <div class="show-details">
