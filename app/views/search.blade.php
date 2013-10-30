@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Fixed Top Navbar Example for Bootstrap</title>
+    <title>Ubuntorrent - Search</title>
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style("bootstrap/css/bootstrap.css") }}
@@ -59,7 +59,7 @@
                   <div class="input-group input-group-hg">
                     <input class="form-control" name="search_term" type="search" placeholder="Search">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button"><span class="fui-search"></span></button>
+                      <button class="btn btn-default" type="submit"><span class="fui-search"></span></button>
                     </span>            
                   </div>
                 </div>
@@ -114,7 +114,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
          $('.search-results').dataTable( {
-              "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+              "sDom": "<'row'<'col-md-8'l><'col-md-8'f>r>t<'row'<'col-md-8'i><'col-md-8'p>>",
               "sPaginationType": "bootstrap",
               "aaSorting": [[ 2, "desc" ]],
           } );

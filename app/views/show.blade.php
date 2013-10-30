@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{ $show->name }}</title>
+    <title>Ubuntorrent - {{ $show->name }}</title>
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style("bootstrap/css/bootstrap.css") }}

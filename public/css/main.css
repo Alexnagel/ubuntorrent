@@ -5,13 +5,15 @@
 	padding-top: 70px;
 }
 
+
+/** Schedule CSS **/
 .table{
 	font-size: 13px;
 	margin-bottom: 0;
 }
 
 .table tr td:first-child{
-	padding-right: 0px;
+	padding-right: 0;
 }
 
 td.schedule-day{
@@ -39,11 +41,12 @@ p{
 	font-size: 13px;
 }
 
+/**********************************
+*	Search CSS
+**********************************/
 .search-results tbody > tr > td{
 	vertical-align: middle;
 }
-
-
 
 /**********************************
 *	Datatables
@@ -76,7 +79,6 @@ table {
     margin: 1em 0;
     clear: both;
 }
-
 
 .pagination ul li {
 margin-right: -2px;

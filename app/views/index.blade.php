@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Fixed Top Navbar Example for Bootstrap</title>
+    <title>Ubuntorrent</title>
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style("bootstrap/css/bootstrap.css") }}
@@ -60,7 +60,7 @@
                   <div class="input-group input-group-hg">
                     <input class="form-control" name="search_term" type="search" placeholder="Search">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button"><span class="fui-search"></span></button>
+                      <button class="btn btn-default" type="submit"><span class="fui-search"></span></button>
                     </span>            
                   </div>
                 </div>
