@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder {
 
 		Setting::create(array('key' => 'first_run', 'value' => 'true'));
 		Setting::create(array('key' => 'last_torrent_check', 'value' => '29-10-2013'));
+		Setting::create(array('key' => 'torrents_added', 'value' => '0'));
 	}
 
 }

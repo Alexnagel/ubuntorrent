@@ -19,7 +19,7 @@ class TorrentHandler {
 		$transmission->setClient($client);
 		$session 			= $transmission->getSession();
 
-		if(Config::get('ubuntorrent.torrent.torrents_added') != count($torrents))
+		if(Setting::where('key', '=', 'torrents_added')->pluck('value') != count($torrents))
 		{
 			foreach($torrents as $torrent)
 			{
@@ -28,9 +28,11 @@ class TorrentHandler {
 
 				$item  = $transmission->add($torrent['link']);
 				$item->start(true);
+				
+				$title = "Season " . $torrent['season'] . " Episode " . $torrent['episode'];
+				RecentTorrent::create(array('name' => $torrent['name'], 'title' => $title, 'date_added' => date('d-m-Y')));
 			}
-			Config::set('ubuntorrent.torrent.torrents_added', count($torrents));
-			Config::set('ubuntorrent.torrent.last_check', date('d-m-Y'));
+			Setting::where('key', '=', 'torrents_added')->update('value', count($torrents));
 		}
 	}
 }
