@@ -109,13 +109,19 @@
     {{ HTML::script('js/jquery-2.0.3.min.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/application.js') }}
-    {{ HTML::script('js/jquery.dataTables.min.js') }}
+    {{ HTML::script('js/jquery.dataTables.js') }}
     {{ HTML::script('js/bootstrap.paging.js') }}
     <script type="text/javascript">
       $(document).ready(function(){
          $('.search-results').dataTable( {
-              "sDom": "<'row'<'col-md-8'l><'col-md-8'f>r>t<'row'<'col-md-8'i><'col-md-8'p>>",
+              "sDom": "<'row'<'col-md-8'l><'col-md-4'f>r>t<'row bottom-table'<'col-md-8'i><'col-md-4'p>>",
               "sPaginationType": "bootstrap",
+              "aoColumns": [
+                null,
+                {"sType": "date-euro"},
+                null,
+                null
+              ],
               "aaSorting": [[ 2, "desc" ]],
           } );
       });
