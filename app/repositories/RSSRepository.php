@@ -70,7 +70,7 @@ class RSSRepository implements RepositoryInterface
 		}
 		if(count($torrents) > 0)
 		{
-			Setting::where('key', '=', 'last_torrent_check')->update(array('value', $current_day));
+			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => $current_day));
 		}
 		return $torrents;
 	}
