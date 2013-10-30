@@ -5,7 +5,7 @@ class ShowController extends BaseController {
 	
 	public function getShow($name)
 	{
-		$show = Serie::where('name', '=', $name)->get();
+		$show = Serie::where('name', '=', $name)->first();
 		var_dump($show);
 
 		if($show->isEmpty())
