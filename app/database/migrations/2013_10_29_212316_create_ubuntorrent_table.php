@@ -40,7 +40,7 @@ class CreateUbuntorrentTable extends Migration {
 			$table->string('genres');
 			$table->text('overview');
 			$table->text('actors');
-			$table->string('firstAired');
+			$table->datetime('firstAired');
 			$table->date('airsDayOfWeek');
 			$table->time('airsTime');
 			$table->string('rating');

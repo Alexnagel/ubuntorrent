@@ -28,7 +28,7 @@ class ShowController extends BaseController {
 								'genres'		=> implode(", ", $show->genres), 
 								'overview'	 	=> $show->overview,
 								'actors'		=> implode(", ", $show->actors), 
-								'firstAired'	=> $show->firstAired, 
+								'firstAired'	=> new DateTime((string)$show->firstAired), 
 								'airsDayOfWeek'	=> $show->airsDayOfWeek, 
 								'airsTime'		=> $show->airsTime, 
 								'rating'		=> $show->rating, 
