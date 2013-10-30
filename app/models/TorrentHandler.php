@@ -32,7 +32,7 @@ class TorrentHandler {
 				$title = "Season " . $torrent['season'] . " Episode " . $torrent['episode'];
 				RecentTorrent::create(array('name' => $torrent['name'], 'title' => $title, 'date_added' => date('d-m-Y')));
 			}
-			Setting::where('key', '=', 'torrents_added')->update('value', count($torrents));
+			Setting::where('key', '=', 'torrents_added')->update(array('value' => count($torrents)));
 		}
 	}
 }
