@@ -8,7 +8,7 @@ class ShowController extends BaseController {
 		$show = Serie::where('name', '=', $name)->first();
 		var_dump($show);
 
-		if($show->isEmpty())
+		if(count($show) == 0)
 		{
 			$tvdb = new Client('http://thetvdb.com', '6FCFFB713EA09F9E');
 
