@@ -34,7 +34,8 @@ class ShowController extends BaseController {
 								'runtime'		=> $show->runtime, 
 								'network'		=> $show->network,
 							));
-
+            
+            $show = Serie::where('name', '=', $name)->first();
 		}
 		
 		return View::make('show')->with(array('show' => $show));
