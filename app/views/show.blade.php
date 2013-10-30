@@ -69,7 +69,7 @@
               </div>
               <div class="show-details">
                 <h3>Released</h3>
-                <p>{{ $show->firstAired->format('d-m-Y') }}</p>
+                <p>{{ $show->firstAired }}</p>
                 <h3>Airs on:</h3>
                 <p>{{ $show->airsDayOfWeek }} at {{ $show->airsTime }}</p>
               </div>
