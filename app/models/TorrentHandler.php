@@ -6,6 +6,7 @@ class TorrentHandler {
 	
 	public function checkNewShows()
 	{
+		echo 'aaaah';
 		$torrentRepository 	= App::make('RepositoryInterface');
 
 		$torrents 			= $torrentRepository->getShows(); 
@@ -40,6 +41,5 @@ class TorrentHandler {
 			Setting::where('key', '=', 'torrents_added')->update(array('value' => count($torrents)));
 			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => date('d-m-Y')));
 		}
-		Setting::where('key', '=', 'torrents_added')->update(array('value' => 14));
 	}
 }
