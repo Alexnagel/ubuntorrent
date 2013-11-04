@@ -9,16 +9,17 @@ class TorrentHandler {
 		$torrentRepository 	= App::make('RepositoryInterface');
 
 		$torrents 			= $torrentRepository->getShows(); 
-		
+
 		$client 			= new Client();
 		$client->authenticate('transmission', 'Alex');
 		
 		$transmission_url 	= Config::get('ubuntorrent.transmission.url');
 		$transmission 		= new Transmission($transmission_url);
-echo 'aaaah';
+
 		$transmission->setClient($client);
 		$session 			= $transmission->getSession();
 
+echo 'aaaah';
 		echo 'torrents_added: ' . Setting::where('key', '=', 'torrents_added')->pluck('value') . "\n";
 		echo 'last_check: ' . Setting::where('key', '=', 'last_torrent_check')->pluck('value') . "\n";
 		echo 'count: ' . count($torrents) . "\n";
