@@ -64,7 +64,6 @@ class RSSRepository implements RepositoryInterface
 		foreach($feed_items as $item)
 		{
 			$item_date = strtotime($item->pubDate);
-			echo $item_date . "\n";
 			if($item_date > $last_str && $item_date < $current_day)
 			{
 				echo $item_date . "\n";
@@ -73,6 +72,7 @@ class RSSRepository implements RepositoryInterface
 				$torrents[] 		= $item_arr;
 			}
 		}
+		var_dump($torrents);
 		if(count($torrents) > 0)
 		{
 			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => $current_day));
