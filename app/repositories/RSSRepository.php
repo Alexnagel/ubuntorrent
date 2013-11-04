@@ -57,11 +57,12 @@ class RSSRepository implements RepositoryInterface
 		$feed_items 	= $feed->xpath('channel/item');
 
 		$torrents = [];
+		$current_day_str = strtotime($current_day);
 		foreach($feed_items as $item)
 		{
-			$item_date = date('d-m-Y', strtotime($item->pubDate));
+			$item_date = strtotime($item->pubDate);
 
-			if($item_date <= $current_day && $item_date >= $last_check_day)
+			if($item_date <= $current_day_str && $item_date >= $last_check_day)
 			{
 				echo $item_date . "\n";
 			echo $current_day . "\n";
