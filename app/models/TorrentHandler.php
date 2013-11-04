@@ -7,15 +7,15 @@ class TorrentHandler {
 	public function checkNewShows()
 	{
 		$torrentRepository 	= App::make('RepositoryInterface');
-		
+
 		$torrents 			= $torrentRepository->getShows(); 
-echo 'aaaah';
+		
 		$client 			= new Client();
 		$client->authenticate('transmission', 'Alex');
 		
 		$transmission_url 	= Config::get('ubuntorrent.transmission.url');
 		$transmission 		= new Transmission($transmission_url);
-
+echo 'aaaah';
 		$transmission->setClient($client);
 		$session 			= $transmission->getSession();
 
