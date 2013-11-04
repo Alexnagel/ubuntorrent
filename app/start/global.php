@@ -29,9 +29,9 @@ App::bind('RepositoryInterface', 'RSSRepository');
 |--------------------------------------------------------------------------
 */
 $today = date('d-m-Y');
-if($today != date('d-m-Y', strtotime(Config::get('ubuntorrent.torrent.last_check'))))
+if($today != date('d-m-Y', strtotime(Setting::where('key', '=', 'last_torrent_check')->pluck('value'))))
 {
-	Config::set('ubuntorrent.torrent.torrents_added', 0);
+	Setting::where('key', '=', 'torrents_added')->update(array('value' => 0));
 }
 
 
