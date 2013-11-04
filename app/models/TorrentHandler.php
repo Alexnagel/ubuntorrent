@@ -20,7 +20,9 @@ class TorrentHandler {
 		$session 			= $transmission->getSession();
 
 		echo 'torrents_added: ' . Setting::where('key', '=', 'torrents_added')->pluck('value') . "\n";
-		echo 'last_check: ' . Setting::where('key', '=', 'last_torrent_check')->pluck('value');
+		echo 'last_check: ' . Setting::where('key', '=', 'last_torrent_check')->pluck('value') . "\n";
+		echo 'count: ' . count($torrents) . "\n";
+		var_dump($torrents);
 
 		if(Setting::where('key', '=', 'torrents_added')->pluck('value') != count($torrents))
 		{
