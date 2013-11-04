@@ -29,7 +29,6 @@ App::bind('RepositoryInterface', 'RSSRepository');
 |--------------------------------------------------------------------------
 */
 $today = date('d-m-Y');
-Setting::where('key', '=', 'last_torrent_check')->update(array('value' => date('d-m-Y')));
 if($today != date('d-m-Y', strtotime(Setting::where('key', '=', 'last_torrent_check')->pluck('value'))))
 {
 	Setting::where('key', '=', 'torrents_added')->update(array('value' => 0));
