@@ -64,7 +64,7 @@ class RSSRepository implements RepositoryInterface
 		foreach($feed_items as $item)
 		{
 			$item_date = strtotime($item->pubDate);
-			if($item_date > $last_str && $item_date < $current_day)
+			if($item_date > $last_str && $item_date < $current_day_str)
 			{
 				echo $item_date . "\n";
 				$item_arr 			= $this->regexTorrentItem($item->title);
