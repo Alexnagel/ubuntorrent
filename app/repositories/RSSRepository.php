@@ -57,7 +57,7 @@ class RSSRepository implements RepositoryInterface
 		$feed_items 	= $feed->xpath('channel/item');
 
 		$torrents = [];
-		$current_day_str = strtotime($current_day);
+		$current_day_str = strtotime($current_day . ' 23:59');
 		$last_str = strtotime($last_check_day);
 		echo $current_day_str . "\n";
 		echo $last_str. "\n";
