@@ -6,9 +6,8 @@ class TorrentHandler {
 	
 	public function checkNewShows()
 	{
-		echo 'aaaah';
 		$torrentRepository 	= App::make('RepositoryInterface');
-
+		echo 'aaaah';
 		$torrents 			= $torrentRepository->getShows(); 
 
 		$client 			= new Client();
