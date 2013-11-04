@@ -36,6 +36,7 @@ class TorrentHandler {
 				RecentTorrent::create(array('name' => $torrent['name'], 'title' => $title, 'date_added' => date('d-m-Y')));
 			}
 			Setting::where('key', '=', 'torrents_added')->update(array('value' => count($torrents)));
+			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => date('d-m-Y')));
 		}
 	}
 }
