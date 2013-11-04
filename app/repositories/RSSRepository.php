@@ -8,7 +8,6 @@ class RSSRepository implements RepositoryInterface
 		$feed 		= simplexml_load_string($feed_url);
 
 		$feed_items = $feed->xpath('channel/item');
-		var_dump($feed_items);
 
 		$schedule 		= [];
 		$worked_days 	= [];
@@ -56,7 +55,7 @@ class RSSRepository implements RepositoryInterface
 		$feed 			= simplexml_load_string($feed_url);
 
 		$feed_items 	= $feed->xpath('channel/item');
-
+		var_dump($feed_items);
 		$torrents = [];
 		foreach($feed_items as $item)
 		{
