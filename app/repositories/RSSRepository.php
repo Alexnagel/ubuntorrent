@@ -55,11 +55,14 @@ class RSSRepository implements RepositoryInterface
 		$feed 			= simplexml_load_string($feed_url);
 
 		$feed_items 	= $feed->xpath('channel/item');
-		var_dump($feed_items);
+
 		$torrents = [];
 		foreach($feed_items as $item)
 		{
 			$item_date = date('d-m-Y', strtotime($item->pubDate));
+			echo $item_date . "\n";
+			echo $current_day . "\n";
+			echo $last_check_day. "\n";
 			if($item_date <= $current_day && $item_date >= $last_check_day)
 			{
 				$item_arr 			= $this->regexTorrentItem($item->title);
