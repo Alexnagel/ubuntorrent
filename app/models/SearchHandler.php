@@ -8,7 +8,7 @@ class SearchHandler {
 	public function search($term, $type = 'tv')
 	{
 		// create http client instance
-		$client = new Client('http://malaysiabay.org/s/');
+		$client = new Client('http://thepiratebay.sx/s/');
  		
 		$exploded_term = str_replace(" ", ".*", $term);
 
