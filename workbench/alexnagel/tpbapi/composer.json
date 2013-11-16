@@ -1,0 +1,20 @@
+{
+    "name": "alexnagel/tpbapi",
+    "description": "",
+    "authors": [
+        {
+            "name": "Alex Nagelkerke",
+            "email": "alex_na@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "AlexNagel\\TPBapi": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

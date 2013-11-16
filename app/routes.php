@@ -29,3 +29,8 @@ Route::get('search/{search}', function($search){
 	$mainController = new MainController();
 	return $mainController->search($search);
 });
+
+Route::get('torrent', array('as' => 'torrent', function(){
+	$mainController = new MainController();
+	$mainController->addTorrent(Input::get('magnet'),  html_entity_decode($Input::get('name')));
+}));

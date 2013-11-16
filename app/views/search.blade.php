@@ -85,12 +85,12 @@
 
                 @foreach($results as $result)
                   <tr>
-                    <td><a href="{{ route('show', array('name' => $result['name']))}}">{{ $result['name'] }}</a> - {{ $result['season'] }}@if($result['episode'] != "none"), {{ $result['episode'] }}
+                    <td><a href="{{ route('show', array('name' => $result['name'])) }}">{{ $result['name'] }}</a> - {{ $result['season'] }}@if($result['episode'] != "none"), {{ $result['episode'] }}
                     @endif
                     </td>
                     <td>{{ $result['date'] }}</td>
                     <td>{{ $result['seeders'] }}</td>
-                    <td><a class="btn btn-primary btn-xs" href="{{$result['magnet']}}">Add to downloads</a></td>
+                    <td><a class="btn btn-primary btn-xs" href="{{ route('torrent', array('magnet'=>$result['magnet'], 'name' => $result['name'] . '/' . $result['name']. 'S' . $result['season']))}}">Add to downloads</a></td>
                   </tr> 
                 @endforeach 
 

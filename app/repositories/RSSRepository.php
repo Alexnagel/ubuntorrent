@@ -43,7 +43,6 @@ class RSSRepository implements RepositoryInterface
 			$schedule_day['Items'] 		= $day_items;
 			$schedule[] 				= $schedule_day;
 		}
-		var_dump($schedule);
 		return $schedule;
 	}
 
