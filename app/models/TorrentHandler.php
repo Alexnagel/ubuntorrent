@@ -25,14 +25,21 @@ class TorrentHandler {
 		{
 			foreach($torrents as $torrent)
 			{
-				$session->setDownloadDir('/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.S' . $torrent['season']);
-				$session->save();
+				try
+				{
+					$session->setDownloadDir('/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.S' . $torrent['season']);
+					$session->save();
 
-				$item  = $transmission->add($torrent['link']);
-				$item->start(true);
-				
-				$title = "Season " . $torrent['season'] . " Episode " . $torrent['episode'];
-				RecentTorrent::create(array('name' => $torrent['name'], 'title' => $title, 'date_added' => date('d-m-Y')));
+					$item  = $transmission->add($torrent['link']);
+					$item->start(true);
+					
+					$title = "Season " . $torrent['season'] . " Episode " . $torrent['episode'];
+					RecentTorrent::create(array('name' => $torrent['name'], 'title' => $title, 'date_added' => date('d-m-Y')));
+				}
+				catch(\RuntimeException $e)
+				{
+					Log::Warning('[TorrentHandler] Torrent: ' . $torrent['name'] . ' could not be added');
+				}
 			}
 			Setting::where('key', '=', 'torrents_added')->update(array('value' => count($torrents)));
 			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => date('d-m-Y')));
