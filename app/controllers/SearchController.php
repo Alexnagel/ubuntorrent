@@ -4,7 +4,18 @@ class SearchController {
 	
 	public function search($searchStr)
 	{
-		$searchHandler = new SearchHandler();
-		return $searchHandler->search($searchStr);
+		$searchResults = array();
+
+		if(Cache::has(strtolower($searchStr)) === false)
+		{
+			$searchHandler = new SearchHandler();
+			$searchResults = $searchHandler->search($searchStr);
+			Cache::add(strtolower($searchStr), $searchResults, 21600);
+		}
+		else
+		{
+			$searchResult = Cache::get(strtolower($searchStr));
+		}
+		return $searchResults;
 	}
 }
