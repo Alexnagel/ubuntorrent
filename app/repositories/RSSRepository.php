@@ -58,7 +58,7 @@ class RSSRepository implements RepositoryInterface
 		$torrents = [];
 		$current_day_str = strtotime($current_day . ' 23:59');
 		$last_str = strtotime($last_check_day);
-		
+		var_dump($feed_items);
 		foreach($feed_items as $item)
 		{
 			$item_date = strtotime($item->pubDate);
