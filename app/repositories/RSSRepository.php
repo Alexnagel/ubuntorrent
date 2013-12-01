@@ -48,7 +48,6 @@ class RSSRepository implements RepositoryInterface
 
 	public function getShows()
 	{
-		Setting::where('key', '=', 'last_torrent_check')->update(array('value' => '22-11-2013'));
 		$last_check_day	= Setting::where('key', '=', 'last_torrent_check')->pluck('value');
 		$current_day 	= date('d-m-Y');
 		$feed_url 		= file_get_contents(Config::get('ubuntorrent.RSS.personal_feed'));
@@ -64,6 +63,7 @@ class RSSRepository implements RepositoryInterface
 		foreach($feed_items as $item)
 		{
 			$item_date = strtotime($item->pubDate);
+			echo $item_date . " === " . $current_day_str . " === " . $last_str . "\n";
 			if($item_date > $last_str && $item_date < $current_day_str)
 			{
 				echo $item_date . "\n";
