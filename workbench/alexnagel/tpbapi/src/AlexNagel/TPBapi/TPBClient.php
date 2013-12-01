@@ -48,6 +48,11 @@ class TPBClient {
 
 	}
 
+	public function searchMovies($term, $sParams = array(), $formatData = self::FORMAT)
+	{
+		$this->formatData 	= $formatData;	
+	}
+
 	public function fetch($sParams = array(), $type = 'shows')
 	{
 		$type = ucfirst($type);
@@ -55,7 +60,7 @@ class TPBClient {
 		$client 	= new GuzzleClient($searchUrl);
 
 		// create a request
-		$request 	= $client->get($this->getURL($term, $sParams));
+		$request 	= $client->get($this->createURL($term, $sParams, $type));
 		$response 	= $request->send();
 
 		$crawler 	= new Crawler($response->getBody(true));
@@ -72,7 +77,6 @@ class TPBClient {
 				$name 		= $row_crawler->filter('a.detLink')->text();
 				$magnet 	= $row_crawler->filterXPath('//a[@title="Download this torrent using magnet"]')->attr('href');
 				$seeders	= $row_crawler->filterXPath('//td[3]')->text();
-
 				$desc 		= $row_crawler->filter('font.detDesc')->text();
 
 	            preg_match('#Uploaded\s+(?P<time>[^,]+),\s+Size\s+(?P<size>[^,]+),\s+ULed\s+by\s+(?P<user>[^\s]+)#S', $desc, $descParsed);
@@ -188,7 +192,8 @@ class TPBClient {
 		if(preg_match("/(?:season\s|s)(\d{1,2})(?:e|\sepisode\s)(\d{1,2})/i", $term, $SEmatches))
 		{
 
-		}else if(preg_match("/(?:complete)*.?(?:season.?)(\d{1,2}.?\d?|\d.?\d?)*/i", $term, $SEmatches))
+		}
+		else if(preg_match("/(?:complete)*.?(?:season.?)(\d{1,2}.?\d?|\d.?\d?)*/i", $term, $SEmatches))
 		{
 
 		}
