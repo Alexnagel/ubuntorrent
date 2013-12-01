@@ -36,7 +36,7 @@ class TorrentHandler {
 				}
 				catch(\RuntimeException $e)
 				{
-					Log::Warning('[TorrentHandler] Torrent: ' . $torrent['name'] . ' could not be added');
+					Log::warning('[TorrentHandler] Torrent: ' . $torrent['name'] . ' could not be added');
 				}
 			}
 			Setting::where('key', '=', 'torrents_added')->update(array('value' => count($torrents)));
