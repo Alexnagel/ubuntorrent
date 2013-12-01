@@ -63,7 +63,7 @@ class RSSRepository implements RepositoryInterface
 		foreach($feed_items as $item)
 		{
 			$item_date = strtotime($item->pubDate);
-			echo $item_date . " === " . $current_day_str . " === " . $last_str . "\n";
+			
 			if($item_date > $last_str && $item_date < $current_day_str)
 			{
 				echo $item_date . "\n";

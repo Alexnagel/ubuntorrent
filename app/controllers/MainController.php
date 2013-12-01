@@ -11,6 +11,7 @@ class MainController extends BaseController
 
 	public function checkNewShows()
 	{
+		Setting::where('key', '=', 'last_torrent_check')->update(array('value' => '20-11-2013'));
 		$torrentHandler = new TorrentHandler();
 		$torrentHandler->checkNewShows();
 	}
