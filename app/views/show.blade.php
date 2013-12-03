@@ -51,7 +51,14 @@
               <img src="{{ asset($show->poster) }}" alt="image of {{ $show->name }}" class="thumbnail show-image"/>
             </div>
             <div class="col-md-8">
-              <div class="label label-success pull-right">{{ $show->status }}</div>
+              <?php
+                switch (strtolower($status)) {
+                  case 'continuing':  $statusClass = "success";   break;
+                  case 'ended':       $statusClass = "danger";  break;
+                  default:            $statusClass = "warning";   break;
+                }
+              ?>
+              <div class="label label-{{ $statusClass }} pull-right">{{ $show->status }}</div>
               <h1>{{ $show->name }}</h1>
               <h6 class="show-genre"> 
                 {{ $show->genres }}

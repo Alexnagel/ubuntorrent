@@ -14,7 +14,7 @@ class ShowController extends BaseController {
 			$serverTime = $tvdb->getServerTime();
 			// Search for a show
 			$data = $tvdb->getSeries($name);
-			// Use the first show found and get the S01E01 episode
+			// Use the first show found
 			$show = $tvdb->getSerie($data[0]->id);
 
 			//Add to DB
