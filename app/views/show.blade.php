@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-8">
               <?php
-                switch (strtolower($status)) {
+                switch (strtolower($show->status)) {
                   case 'continuing':  $statusClass = "success";   break;
                   case 'ended':       $statusClass = "danger";  break;
                   default:            $statusClass = "warning";   break;
