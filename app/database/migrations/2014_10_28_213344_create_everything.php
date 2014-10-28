@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUbuntorrentTable extends Migration {
+class CreateEverything extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,20 +12,17 @@ class CreateUbuntorrentTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('settings', function(Blueprint $table)
+		Schema::create('added_torrents', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('key');
-			$table->string('value');
-			$table->timestamps();
-		});
-
-		Schema::create('recent_torrents', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('name');
-			$table->string('title');
+			$table->string('show_name');
+			$table->string('episode_title');
+			$table->integer('season');
+			$table->integer('episode');
 			$table->date('date_added');
+			$table->date('pub_date');
+			$table->string('magnet');
+			$table->boolean('processed');
 			$table->timestamps();
 		});
 
@@ -49,15 +46,18 @@ class CreateUbuntorrentTable extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::create('cache', function(Blueprint $table)
+		Schema::create('tvdb_episodes_cache', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('type');
-			$table->integer('series_id')->nullable();
-			$table->integer('movies_id')->nullable();
+			$table->string('imdbId');
+			$table->string('show_name');
+			$table->string('episode_title');
+			$table->integer('season');
+			$table->integer('episode');
+			$table->text('overview');
+			$table->text('guest_stars');
+			$table->datetime('firstAired');
 			$table->timestamps();
-
-			$table->foreign('series_id')->references('id')->on('tvdb_series_cache');
 		});
 	}
 
@@ -68,10 +68,9 @@ class CreateUbuntorrentTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('settings');
-		Schema::drop('recent_torrents');
-		Schema::drop('cache');
+		Schema::drop('added_torrents');
 		Schema::drop('tvdb_series_cache');
+		Schema::drop('tvdb_episodes_cache');
 	}
 
 }

@@ -14,8 +14,9 @@ class SearchController {
 		}
 		else
 		{
-			$searchResult = Cache::get(strtolower($searchStr));
+			$searchResults = Cache::get(strtolower($searchStr));
 		}
+
 		return $searchResults;
 	}
 }

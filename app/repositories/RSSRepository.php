@@ -48,34 +48,30 @@ class RSSRepository implements RepositoryInterface
 
 	public function getShows()
 	{
-		$last_check_day	= Setting::where('key', '=', 'last_torrent_check')->pluck('value');
-		$current_day 	= date('d-m-Y');
+		$last_added 	= Torrent::orderBy('created_at')->first();
 		$feed_url 		= file_get_contents(Config::get('ubuntorrent.RSS.personal_feed'));
 		$feed 			= simplexml_load_string($feed_url);
 
 		$feed_items 	= $feed->xpath('channel/item');
 
-		$torrents = [];
-		$current_day_str = strtotime($current_day . ' 23:59');
-		$last_str = strtotime($last_check_day);
-
-
+		//dd($last_added);
 		foreach($feed_items as $item)
 		{
 			$item_date = strtotime($item->pubDate);
 
-			if($item_date > $last_str && $item_date < $current_day_str)
-			{
-				$item_arr 			= $this->regexTorrentItem($item->title);
-				$item_arr['link']	= (string)$item->link;
-				$torrents[] 		= $item_arr;
-			}
+			if($last_added != null && $item_date <= $last_added->pub_date->timestamp)
+				break;
+
+			// set the torrent data
+			$item_arr 				= $this->regexTorrentItem($item->title);
+			$item_arr['date_added'] = \Carbon\Carbon::now();
+			$item_arr['pub_date'] 	= \Carbon\Carbon::createFromTimeStamp($item_date);
+			$item_arr['magnet']		= (string)$item->link;
+			$item_arr['processed']	= false;
+			
+			// Add to the added torrents table
+			Torrent::create($item_arr);
 		}
-		if(count($torrents) > 0)
-		{
-			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => $current_day));
-		}
-		return $torrents;
 	}
 
 	private function regexScheduleItem($text)
@@ -98,7 +94,7 @@ class RSSRepository implements RepositoryInterface
 
 	private function regexTorrentItem($text)
 	{
-		$regex = "/(.*?)\s?(\d{1,2})x(\d{2})/";
+		$regex = "/(.*?)\s?(\d{1,2})x(\d{2})\s(.*)\s/";
 
 		preg_match($regex, $text, $matches);
 
@@ -109,9 +105,10 @@ class RSSRepository implements RepositoryInterface
 			$season = $matches[2];
 		}
 
-		$name 		= str_replace(' ', '.', $matches[1]);
-		$episode 	= $matches[3];
+		$name 			= $matches[1];
+		$episode 		= $matches[3];
+		$episode_title 	= $matches[4];
 
-		return ['name' => $name, 'season' => $season, 'episode' => $episode];
+		return ['show_name' => $name, 'episode_title' => $episode_title, 'season' => $season, 'episode' => $episode];
 	}
 }

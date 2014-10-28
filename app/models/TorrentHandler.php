@@ -7,9 +7,11 @@ class TorrentHandler {
 	public function checkNewShows()
 	{
 		$torrentRepository 	= App::make('RepositoryInterface');
+		$torrentRepository->getShows(); 
+	}
 
-		$torrents 			= $torrentRepository->getShows(); 
-
+	public function addNewTorrents()
+	{
 		$client 			= new Client();
 		$client->authenticate('transmission', 'Alex');
 		
@@ -19,28 +21,26 @@ class TorrentHandler {
 		$transmission->setClient($client);
 		$session 			= $transmission->getSession();
 
-		if(Setting::where('key', '=', 'torrents_added')->pluck('value') != count($torrents))
-		{
-			foreach($torrents as $torrent)
-			{
-				try
-				{
-					$session->setDownloadDir('/seagate/Series/' . $torrent['name'] . '/' . $torrent['name'] . '.S' . $torrent['season']);
-					$session->save();
+		$torrents = Torrent::where('processed', '=', false)->get();
 
-					$item  = $transmission->add($torrent['link']);
-					$item->start(true);
-					
-					$title = "Season " . $torrent['season'] . " Episode " . $torrent['episode'];
-					RecentTorrent::create(array('name' => $torrent['name'], 'title' => $title, 'date_added' => date('d-m-Y')));
-				}
-				catch(\RuntimeException $e)
-				{
-					Log::warning('[TorrentHandler] Torrent: ' . $torrent['name'] . ' could not be added');
-				}
+		foreach ($torrents as $torrent) 
+		{
+			try
+			{
+				$safeShowName = str_replace(' ', '.', $torrent->show_name);
+				$session->setDownloadDir('/seagate/Series/' . $safeShowName . '/' . $safeShowName . '.S' . $torrent->season);
+				$session->save();
+
+				$item  = $transmission->add($torrent->magnet);
+				$item->start(true);
+
+				$torrent->processed = true;
+				$torrent->save();
 			}
-			Setting::where('key', '=', 'torrents_added')->update(array('value' => count($torrents)));
-			Setting::where('key', '=', 'last_torrent_check')->update(array('value' => date('d-m-Y')));
+			catch(\RuntimeException $e)
+			{
+				Log::warning('[TorrentHandler] Torrent: ' . $torrent['name'] . ' could not be added');
+			}	
 		}
 	}
 }

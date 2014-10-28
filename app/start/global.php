@@ -25,18 +25,6 @@ App::bind('RepositoryInterface', 'RSSRepository');
 
 /*
 |--------------------------------------------------------------------------
-| Check the last update time
-|--------------------------------------------------------------------------
-*/
-$today = date('d-m-Y');
-if($today != date('d-m-Y', strtotime(Setting::where('key', '=', 'last_torrent_check')->pluck('value'))))
-{
-	Setting::where('key', '=', 'torrents_added')->update(array('value' => 0));
-}
-
-
-/*
-|--------------------------------------------------------------------------
 | Application Error Logger
 |--------------------------------------------------------------------------
 |

@@ -5,35 +5,56 @@ use Symfony\Component\DomCrawler\Crawler;
 class SearchHandler {
 	protected $crawler;
 
-	public function search($term, $type = 'tv')
+	public function search($term, $type = 'tv-hd')
 	{
 		// create http client instance
-		$client = new Client('http://thepiratebay.sx/s/');
+		$client = new Client('http://thepiratebay.se/search/');
  		
 		$exploded_term = str_replace(" ", ".*", $term);
 
-		if(preg_match("/\s720p$/i", $term) == false)
-		{
-			$term .= " 720p";
-		}
-		$term = "?q=" . urlencode($term);
+		// Add to the search term
+		$term = urlencode($term);
 
-		$params = array("page" => 0, "orderBy" => 7);
+		// Search catergory number from string
+		$category = 0;
+		switch ($type) {
+			case 'tv':
+				$category = 205;
+				break;
+			case 'movie':
+				$category = 201;
+			case 'movie-hd':
+				$category = 207;
+			case 'tv-hd':
+			default:
+				$category = 208;
+				break;
+		}
+
+		// Add should start on page 0 
+		// Add should order by most seeds
+		// Add search category
+		$params = array("page" => 0, "orderBy" => 7, "category" => $category);
 		foreach($params as $key => $value)
 		{
-			$term .= "&" . $key . "=" . $value;
+			$term .= "/" . $value;
 		}
 
 		// create a request
 		$request = $client->get($term);
+		// send request
 		$response = $request->send();
+		// get the request body
 		$result = $response->getBody();
 
+		// create new crawler with dom content
 		$this->crawler = new Crawler($response->getBody(true));
 
 		switch ($type) 
 		{
+			case 'tv-hd':
 			case 'tv'	: return $this->searchTV($exploded_term);break;
+			case 'movie-hd':
 			case 'movie': return $this->searchMovie($rows, $exploded_term);break;
 			default 	: return $this->searchTV($exploded_term);break; 
 		}
@@ -101,13 +122,13 @@ class SearchHandler {
 
 	private function getDate($timestr)
 	{
-		if(preg_match("/(vandaag|t-day|y-day)(.*)/i", $timestr, $matches))
+		if(preg_match("/(vandaag|gisteren|t-day|today|y-day|yesterday|mins)(.*)/i", $timestr, $matches))
         {
-        	if(strtolower($matches[1]) == 't-day')
+        	if(strtolower($matches[1]) == 't-day' | strtolower($matches[1]) == 'vandaag' | strtolower($matches[1]) == 'today' | strtolower($matches[1]) == 'mins')
         	{
         		$timestr = date('d-m') . $matches[2];
         	}
-        	else if(strtolower($matches[1]) == 'y-day')
+        	else if(strtolower($matches[1]) == 'y-day' | strtolower($matches[1]) == 'gisteren' | strtolower($matches[1]) == 'yesterday')
         	{
         		$timestr = date('d-m', strtotime('-1 day')) . $matches[2];
         	}
@@ -122,7 +143,7 @@ class SearchHandler {
 		{
 		    $date 	= date_create_from_format('m-d.Y', $timestr);
 		}
-        $dateStr 		= date_format($date, 'd-m-Y');
+        $dateStr = date_format($date, 'd-m-Y');
         
         return $dateStr;
 	}

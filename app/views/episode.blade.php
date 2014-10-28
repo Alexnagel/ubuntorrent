@@ -7,14 +7,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ubuntorrent</title>
+    <title>Ubuntorrent - {{ $episode->show_name }}</title>
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style("bootstrap/css/bootstrap.css") }}
     {{ HTML::style("bootstrap/css/prettify.css") }}
-
-
-
     {{ HTML::style("css/flat-ui.css") }}
 
     <!-- Custom styles for this template -->
@@ -28,8 +25,9 @@
   </head>
 
   <body>
+
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
@@ -39,6 +37,7 @@
               <ul class="nav">
                 <!-- Menu items go here -->
                 <li>
+                  <a href="{{ URL::to('/') }}">Home</a>
                 </li>
               </ul>
             </div>
@@ -47,28 +46,30 @@
     </div>
     <div class="container main-container">
       <div class="row">
-        @include('modules.schedule_module', array('schedule'=>$schedule))
-        @yield('schedule_module')
-          <div class="col-md-8">
-            <div class="well">
-              <h4>Search:</h4>
-              <p>
-                Search for tv series and choose episodes to be downloaded.
-              </p>
-              <form action="search" method="post">
-                <div class="form-group">
-                  <div class="input-group input-group-hg">
-                    <input class="form-control" name="search_term" type="search" placeholder="Search">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="submit"><span class="fui-search"></span></button>
-                    </span>            
-                  </div>
-                </div>
-              </form>
+          <div class="col-md-10 well">
+            <div class="col-md-8">
+              <h1>{{ $episode->show_name }}</h1>
+              <h6 class="show-genre"> 
+                {{ $episode->name }}
+              </h6>
+              <div class="show-info">
+                <h3>Summary</h3>
+                <p>
+                  {{ $episode->overview }}
+                </p>
+
+                <h3>Guest Stars</h3>
+                <p>
+                  {{ $episode->guest_stars }}
+                </p>
               </div>
+              <div class="show-details">
+                <h3>Released</h3>
+                <p>{{ $episode->firstAired->format('d-m-Y') }}</p>
+              </div>
+               <a href="http://www.imdb.com/title/{{ $episode->imdbId }}/" class="btn btn-primary">Go to IMDB</a>
+            </div>
           </div>
-          @include('modules.recently_added_module', array('recently_added'=>$recently_added))
-          @yield('recently_added_module')
       </div>
     </div> <!-- /main-container -->
 
@@ -76,8 +77,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    {{ HTML::script('js/jquery-2.0.3.min.js') }}
+    {{ HTML::script('js/jquery.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
-    {{ HTML::script('js/application.js') }}
   </body>
 </html>

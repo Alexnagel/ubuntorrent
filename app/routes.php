@@ -19,6 +19,11 @@ Route::get('show/{name}', array('as' => 'show', function($name){
 	return $showController->getShow($name);
 }));
 
+Route::get('show/{name}/{season}/{episode}', array('as' => 'episode', function($name, $season, $episode){
+	$showController = new ShowController();
+	return $showController->getEpisode($name, $season, $episode);
+}));
+
 Route::post('search', function(){
 	$search = Input::get('search_term');
 	$mainController = new MainController();

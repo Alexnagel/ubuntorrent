@@ -20,4 +20,9 @@ class Serie extends Eloquent {
 							'runtime', 
 							'network'
 						);
+
+	public function getDates()
+	{
+	    return array('created_at', 'updated_at', 'firstAired');
+	}
 }

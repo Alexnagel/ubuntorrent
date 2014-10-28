@@ -57,7 +57,7 @@
               <form action="/search" method="post">
                 <div class="form-group">
                   <div class="input-group input-group-hg">
-                    <input class="form-control" name="search_term" type="search" placeholder="Search">
+                    <input class="form-control" name="search_term" type="search" placeholder="Search" value="{{ $searchterm }}">
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="submit"><span class="fui-search"></span></button>
                     </span>            

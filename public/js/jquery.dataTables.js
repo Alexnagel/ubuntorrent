@@ -2781,7 +2781,7 @@
 				nLength.id = oSettings.sTableId+'_length';
 			}
 			nLength.className = oSettings.oClasses.sLength;
-			nLength.innerHTML = '<label class="control-label col-md-3">'+oSettings.oLanguage.sLengthMenu.replace( '_MENU_', 'aantal')+':</label>' + sStdMenu;
+			nLength.innerHTML = '<label class="control-label col-md-2">'+oSettings.oLanguage.sLengthMenu.replace( '_MENU_', '')+':</label>' + sStdMenu;
 			nFormGroup.innerHTML = nLength.outerHTML;
 			nForm.innerHTML = nFormGroup.outerHTML;
 			
@@ -9239,7 +9239,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Volgende",
+				"sNext": "Next page",
 			
 			
 				/**
@@ -9260,7 +9260,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Vorige"
+				"sPrevious": "Previous page"
 			},
 		
 			/**
@@ -9281,7 +9281,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "Geen data in de tabel aanwezig",
+			"sEmptyTable": "No data to show",
 		
 		
 			/**
@@ -9302,7 +9302,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Toont _START_ tot _END_ van de _TOTAL_ offertes",
+			"sInfo": "Showing _START_ to _END_ of _TOTAL_ torrents",
 		
 		
 			/**
@@ -9321,7 +9321,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Toont 0 tot 0 van de 0 offertes",
+			"sInfoEmpty": "No torrents to show",
 		
 		
 			/**
@@ -9422,7 +9422,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Toon _MENU_ offertes",
+			"sLengthMenu": "Show _MENU_ torrents",
 		
 		
 			/**
@@ -9444,7 +9444,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLoadingRecords": "Laden...",
+			"sLoadingRecords": "Loading...",
 		
 		
 			/**
@@ -9463,7 +9463,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sProcessing": "Verwerken...",
+			"sProcessing": "Processing...",
 		
 		
 			/**
@@ -9496,7 +9496,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Zoek:",
+			"sSearch": "Search:",
 		
 		
 			/**
@@ -9539,7 +9539,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "Geen resultaten gevonden"
+			"sZeroRecords": "No torrents to display"
 		},
 	
 	

@@ -5,13 +5,13 @@ class MainController extends BaseController
 	public function makeIndex()
 	{
 		$schedule = new Schedule();
-
-		return View::make('index', array('schedule' => $schedule->getSchedule()));
+		$recently_added = Torrent::where('processed', '=', true)->take(10)->get();
+		
+		return View::make('index', array('schedule' => $schedule->getSchedule(), 'recently_added' => $recently_added));
 	}
 
 	public function checkNewShows()
 	{
-		Setting::where('key', '=', 'last_torrent_check')->update(array('value' => '20-11-2013'));
 		$torrentHandler = new TorrentHandler();
 		$torrentHandler->checkNewShows();
 	}
@@ -21,7 +21,7 @@ class MainController extends BaseController
 		$searchController = new SearchController();
 		$results = $searchController->search($search);
 
-		return View::make('search', array('results' => $results));
+		return View::make('search', array('results' => $results, 'searchterm' => $search));
 	}
 
 	public function addTorrent($magnet, $dirname)
