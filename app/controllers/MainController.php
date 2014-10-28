@@ -6,7 +6,7 @@ class MainController extends BaseController
 	{
 		$schedule = new Schedule();
 		$recently_added = Torrent::where('processed', '=', true)->take(10)->get();
-		
+
 		return View::make('index', array('schedule' => $schedule->getSchedule(), 'recently_added' => $recently_added));
 	}
 
@@ -14,6 +14,7 @@ class MainController extends BaseController
 	{
 		$torrentHandler = new TorrentHandler();
 		$torrentHandler->checkNewShows();
+		$torrentHandler->addNewTorrents();
 	}
 
 	public function search($search)
