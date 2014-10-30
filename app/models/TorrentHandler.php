@@ -27,8 +27,9 @@ class TorrentHandler {
 		{
 			try
 			{
-				$safeShowName = str_replace(' ', '.', $torrent->show_name);
-				$session->setDownloadDir('/seagate/Series/' . $safeShowName . '/' . $safeShowName . '.S' . $torrent->season);
+				$safeShowName  = str_replace(' ', '.', $torrent->show_name);
+				$seasonCorrect = sprintf("%02s", $torrent->season);
+				$session->setDownloadDir('/seagate/Series/' . $safeShowName . '/' . $safeShowName . '.S' . $seasonCorrect);
 				$session->save();
 
 				$item  = $transmission->add($torrent->magnet);
